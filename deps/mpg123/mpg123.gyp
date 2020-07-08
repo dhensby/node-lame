@@ -58,8 +58,9 @@
           ['OS=="win"', { 'mpg123_cpu%': 'i386_fpu' },
           { 'conditions': [
             ['target_arch=="arm"', { 'mpg123_cpu%': 'arm_nofpu' }],
+	    # TODO: use a better arm64 config (needs mpg123 upgrade)
+            ['target_arch=="arm64"', { 'mpg123_cpu%': 'arm_nofpu' }],
             ['target_arch=="ia32"', { 'mpg123_cpu%': 'i386_fpu' }],
-            ['target_arch=="x87"', { 'mpg123_cpu%': 'i386_fpu' }],
             ['target_arch=="x64"', { 'mpg123_cpu%': 'x86-64' }],
           ]}],
         ]
@@ -217,6 +218,21 @@
           'link_settings': {
             'libraries': [
               '-lwinmm.lib',
+            ],
+          }
+        }],
+        ['mpg123_backend=="pulse"', {
+          'link_settings': {
+            'libraries': [
+              '-lpulse',
+              '-lpulse-simple',
+            ],
+          }
+        }],
+        ['mpg123_backend=="jack"', {
+          'link_settings': {
+            'libraries': [
+              '-ljack',
             ],
           }
         }],
